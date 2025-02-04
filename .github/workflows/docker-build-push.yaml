@@ -2,8 +2,8 @@ name: Build and Deploy Docker Image with Version Tag
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 env:
   DOCKER_IMAGE: ghcr.io/dhanuprys/entreprenix # Your GHCR organization image
