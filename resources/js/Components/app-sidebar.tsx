@@ -64,7 +64,7 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const user = usePage().props.auth.user;
+    const user = usePage().props.auth.user as any;
     const goToCreatePost = useCallback(() => {
         router.visit('/posting');
     }, []);
@@ -110,12 +110,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <NavSimple projects={data.projects} />
             </SidebarContent>
             <SidebarFooter>
-                <NavUser user={{
-                    name: user.name,
-                    email: user.email,
-                    avatar: ''
-                    // avatar: user.avatar
-                }} />
+                <NavUser
+                    user={{
+                        name: user.name,
+                        email: user.email,
+                        photo: user.photo,
+                        // avatar: user.avatar
+                    }}
+                />
             </SidebarFooter>
         </Sidebar>
     );

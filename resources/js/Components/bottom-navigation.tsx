@@ -44,17 +44,26 @@ const data = [
     },
 ];
 
-export default function BottomNavigation() {
+export default function BottomNavigation({
+    withCreatePostButton,
+}: {
+    withCreatePostButton?: boolean;
+}) {
     return (
-        <div className="md:hidden fixed bottom-0 left-0 z-50 w-screen">
-            <div className="flex justify-end">
-                <Button className="m-5 size-14 rounded-full !p-2 shadow-xl">
-                    <PlusIcon />
-                </Button>
-            </div>
+        <div className="fixed bottom-0 left-0 z-50 w-screen md:hidden">
+            {withCreatePostButton && (
+                <div className="flex justify-end">
+                    <Link href="/posting">
+                        <Button className="m-5 size-14 rounded-full !p-2 shadow-xl">
+                            <PlusIcon />
+                        </Button>
+                    </Link>
+                </div>
+            )}
             <div className="flex justify-around border-t bg-white px-6">
                 {data.map((item) => (
                     <Link
+                        key={item.url}
                         href={item.url}
                         className={cn(
                             'my-2 rounded-xl p-3',
