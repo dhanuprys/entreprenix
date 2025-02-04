@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  DOCKER_IMAGE: ghcr.io/dhanuprys/amerta # Your GHCR organization image
+  DOCKER_IMAGE: ghcr.io/dhanuprys/entreprenix # Your GHCR organization image
   REGISTRY: ghcr.io
 
 jobs:
