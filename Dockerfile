@@ -51,6 +51,7 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY . /app
+COPY storage/ /app/default-storage
 COPY --from=node-build /app/public ./public
 
 RUN composer install \
