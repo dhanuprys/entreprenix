@@ -8,7 +8,7 @@ class Post extends Model
 {
     protected $fillable = [
         'user_id',
-        'type', // visual, article
+        'caption',
     ];
 
     public function user()
@@ -16,13 +16,8 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function visual()
+    public function postAssets()
     {
-        return $this->hasOne(VisualPost::class);
-    }
-
-    public function article()
-    {
-        return $this->hasOne(ArticlePost::class);
+        return $this->hasMany(PostAsset::class);
     }
 }

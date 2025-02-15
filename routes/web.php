@@ -32,7 +32,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     });
 
     Route::get('/posting', [PostController::class, 'index']);
-    Route::get('/eksplorasi', [PostController::class, 'explore']);
+    Route::post('/posting', [PostController::class, 'storeContent']);
+    Route::post('/upload', [PostController::class, 'uploadFile']);
+    Route::get('/eksplorasi', [PostController::class, 'explore'])->name('explore');
 
     Route::get('/quiz', [QuizController::class, 'index']);
     Route::post('/quiz', [QuizController::class, 'submitAnswer']);

@@ -8,7 +8,7 @@ class PostAsset extends Model
 {
     protected $fillable = [
         'post_id',
-        'asset_url',
+        'asset_path',
         'type'
     ];
 
