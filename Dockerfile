@@ -60,9 +60,9 @@ RUN composer install \
     --no-ansi \
     --no-dev \
     && composer clear-cache
-RUN php artisan optimize \
-    && php artisan config:clear \
-    && php artisan storage:link
+# RUN php artisan optimize \
+#     && php artisan config:clear \
+#     && php artisan storage:link
 
 RUN chmod +x ./docker-entrypoint.sh
 
