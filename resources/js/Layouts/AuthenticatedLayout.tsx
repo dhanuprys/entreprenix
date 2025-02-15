@@ -33,7 +33,10 @@ export default function Authenticated({
                     </div>
                     <Link href="/profile">
                         <Avatar className="size-14">
-                            <AvatarImage src={`/storage/${user.photo}`} />
+                            <AvatarImage
+                                className="object-cover"
+                                src={`/storage/${user.photo}`}
+                            />
                             <AvatarFallback>EP</AvatarFallback>
                         </Avatar>
                     </Link>
