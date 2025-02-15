@@ -66,7 +66,7 @@ export default function BottomNavigation({
                         key={item.url}
                         href={item.url}
                         className={cn(
-                            'my-2 rounded-xl p-3',
+                            'my-2 rounded-xl p-3 transition hover:bg-indigo-500/25',
                             window.location.pathname.startsWith(item.url) &&
                                 'bg-indigo-500/50',
                         )}
