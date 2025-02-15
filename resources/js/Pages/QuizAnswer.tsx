@@ -53,7 +53,7 @@ export default function QuizAnswerPage({
     }, [form]);
 
     return (
-        <AuthenticatedLayout>
+        <AuthenticatedLayout withBottomPop={false}>
             <Head title="Komunitas" />
 
             <div className="mx-4 space-y-8">
