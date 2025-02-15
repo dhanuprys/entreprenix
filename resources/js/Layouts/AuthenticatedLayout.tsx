@@ -17,7 +17,7 @@ export default function Authenticated({
     withSafeWidth?: boolean;
     withBottomPop?: boolean;
 }>) {
-    const user = usePage().props.auth.user;
+    const user = usePage().props.auth.user as any;
     const isMobile = useIsMobile();
 
     return (
@@ -33,7 +33,7 @@ export default function Authenticated({
                     </div>
                     <Link href="/profile">
                         <Avatar className="size-14">
-                            <AvatarImage />
+                            <AvatarImage src={`/storage/${user.photo}`} />
                             <AvatarFallback>EP</AvatarFallback>
                         </Avatar>
                     </Link>
