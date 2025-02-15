@@ -101,6 +101,7 @@ export default function ProfilePage() {
                                 type="file"
                                 id={inputPhotoId}
                                 onChange={handlePhotoChange}
+                                accept="image/*"
                                 className="mx-auto"
                             />
                             {/* <label htmlFor={inputPhotoId}>
