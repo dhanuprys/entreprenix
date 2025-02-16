@@ -69,13 +69,9 @@ export default function ReferencePage() {
                         Modul Pembelajaran Promosi
                     </h3>
                     <div className="grid grid-cols-3 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-x-8">
-                        <BookCard />
-                        <BookCard />
-                        <BookCard />
-                        <BookCard />
-                        <BookCard />
-                        <BookCard />
-                        <BookCard />
+                        {promotionBooks.map((book) => (
+                            <BookCard book={book} />
+                        ))}
                     </div>
                 </div>
 
@@ -84,13 +80,9 @@ export default function ReferencePage() {
                         Buku Penunjang
                     </h3>
                     <div className="grid grid-cols-3 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-x-8">
-                        <BookCard />
-                        <BookCard />
-                        <BookCard />
-                        <BookCard />
-                        <BookCard />
-                        <BookCard />
-                        <BookCard />
+                        {supportBooks.map((book) => (
+                            <BookCard book={book} />
+                        ))}
                     </div>
                 </div>
             </div>
@@ -98,24 +90,21 @@ export default function ReferencePage() {
     );
 }
 
-function BookCard() {
+function BookCard({ book }: { book: any }) {
     return (
-        <div className="group">
+        <a target="_blank" href={book.url} className="group">
             <AspectRatio
                 ratio={3 / 4}
                 className="rounded-xl border bg-muted group-hover:cursor-pointer group-hover:shadow-xl"
             >
-                <img
-                    src="/images/covers/example.jpg"
-                    className="size-full object-contain"
-                />
+                <img src={book.coverSrc} className="size-full object-contain" />
             </AspectRatio>
             <div className="mt-4">
                 <h4 className="text-center font-semibold md:text-lg">
-                    The Book Of Art
+                    {book.title}
                 </h4>
                 <p className="text-muted-foreground"></p>
             </div>
-        </div>
+        </a>
     );
 }
