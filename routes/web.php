@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -40,9 +41,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('/quiz', [QuizController::class, 'submitAnswer']);
     Route::get('/quiz/{level}', [QuizController::class, 'answerQuestion']);
 
-    Route::get('/komunitas', function () {
-        return Inertia::render('Community');
-    });
+    Route::get('/komunitas/{date?}', [ScheduleController::class, 'index'])->name('community');
+    Route::post('/komunitas', [ScheduleController::class, 'store']);
+    Route::delete('/schedule/{schedule}', [ScheduleController::class, 'destroy']);
 });
 
 // Route::middleware('auth')->group(function () {
