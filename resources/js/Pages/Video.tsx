@@ -19,7 +19,7 @@ const promotionVideos: VideoEntity[] = [
         coverSrc: '',
         title: 'The Book of Art',
         description: 'Kumpulan karya kreatif',
-        url: '/kreatif',
+        url: 'https://youtube.com',
     },
 ];
 
@@ -29,7 +29,7 @@ const supportVideos: VideoEntity[] = [
         coverSrc: '',
         title: 'The Book of Art',
         description: 'Kumpulan karya kreatif',
-        url: '/kreatif',
+        url: 'https://youtube.com',
     },
 ];
 
@@ -74,13 +74,9 @@ export default function VideoPage() {
                         Video Edukatif Promosi
                     </h3>
                     <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 md:gap-x-8">
-                        <VideoCard />
-                        <VideoCard />
-                        <VideoCard />
-                        <VideoCard />
-                        <VideoCard />
-                        <VideoCard />
-                        <VideoCard />
+                        {promotionVideos.map((video) => (
+                            <VideoCard key={video.youtubeId} video={video} />
+                        ))}
                     </div>
                 </div>
 
@@ -89,13 +85,9 @@ export default function VideoPage() {
                         Video Penunjang
                     </h3>
                     <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 md:gap-x-8">
-                        <VideoCard />
-                        <VideoCard />
-                        <VideoCard />
-                        <VideoCard />
-                        <VideoCard />
-                        <VideoCard />
-                        <VideoCard />
+                        {supportVideos.map((video) => (
+                            <VideoCard key={video.youtubeId} video={video} />
+                        ))}
                     </div>
                 </div>
             </div>
@@ -103,15 +95,15 @@ export default function VideoPage() {
     );
 }
 
-function VideoCard() {
+function VideoCard({ video }: { video: VideoEntity }) {
     return (
-        <div className="group">
+        <a target="_blank" href={video.url} className="group">
             <AspectRatio
                 ratio={16 / 9}
                 className="relative rounded-xl border bg-muted group-hover:cursor-pointer group-hover:shadow-xl"
             >
                 <img
-                    src="/images/thumbnails/example.jpg"
+                    src={video.coverSrc}
                     className="size-full object-contain"
                 />
                 <div className="group-hover absolute left-0 top-0 flex size-full items-center justify-center bg-muted/20 opacity-0 transition group-hover:opacity-100">
@@ -122,10 +114,10 @@ function VideoCard() {
             </AspectRatio>
             <div className="mt-4">
                 <h4 className="text-center font-semibold md:text-xl">
-                    The Book Of Art
+                    {video.title}
                 </h4>
                 <p className="text-muted-foreground"></p>
             </div>
-        </div>
+        </a>
     );
 }
