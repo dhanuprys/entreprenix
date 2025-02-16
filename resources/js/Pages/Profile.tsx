@@ -14,7 +14,7 @@ import { Separator } from '@/Components/ui/separator';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { EditIcon, SaveIcon } from 'lucide-react';
+import { CameraIcon, EditIcon, SaveIcon } from 'lucide-react';
 import React, { useCallback, useId, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -97,19 +97,26 @@ export default function ProfilePage() {
                             </AspectRatio>
                         </div>
                         <div className="flex justify-center">
-                            <input
-                                type="file"
-                                id={inputPhotoId}
-                                onChange={handlePhotoChange}
-                                accept="image/*"
-                                className="mx-auto"
-                            />
-                            {/* <label htmlFor={inputPhotoId}>
-                                <Button type="button" variant="outline">
+                            <label
+                                htmlFor={inputPhotoId}
+                                className="hover:cursor-pointer"
+                            >
+                                <Button
+                                    type="button"
+                                    className="pointer-events-none"
+                                    variant="outline"
+                                >
                                     <CameraIcon />
                                     Ganti foto
                                 </Button>
-                            </label> */}
+                                <input
+                                    type="file"
+                                    id={inputPhotoId}
+                                    onChange={handlePhotoChange}
+                                    accept="image/*"
+                                    className="hidden"
+                                />
+                            </label>
                         </div>
                     </div>
                     <div className="col-span-full md:col-span-6">
