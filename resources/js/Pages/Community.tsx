@@ -82,6 +82,7 @@ export default function CommunityPage() {
 
                 <div className="mx-4 space-y-8">
                     <UserCalendar />
+                    <Button>Tambahkan kegiatan</Button>
                 </div>
             </div>
         </AuthenticatedLayout>
@@ -148,9 +149,8 @@ function UserCalendar() {
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>
-                            Selected Date:{' '}
                             {selectedDate
-                                ? format(selectedDate, 'MMMM d, yyyy')
+                                ? format(selectedDate, 'dd MMMM yyyy')
                                 : ''}
                         </DialogTitle>
                     </DialogHeader>
