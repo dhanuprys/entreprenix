@@ -1,6 +1,17 @@
+import { Calendar, DateCellProps } from '@/Components/calendar';
+import { Badge } from '@/Components/ui/badge';
+import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardHeader } from '@/Components/ui/card';
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+} from '@/Components/ui/dialog';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
+import { format } from 'date-fns';
+import { useState } from 'react';
 import { FaTelegramPlane } from 'react-icons/fa';
 import {
     IoLogoInstagram,
@@ -10,9 +21,15 @@ import {
 } from 'react-icons/io5';
 import { IconType } from 'react-icons/lib';
 
+const events = {
+    '2025-02-01': "New Year's Day",
+    '2025-02-14': "Valentine's Day",
+    '2025-02-20': 'Team Meeting',
+};
+
 export default function CommunityPage() {
     return (
-        <AuthenticatedLayout>
+        <AuthenticatedLayout withBottomPop={false}>
             <Head title="Komunitas" />
 
             <div className="space-y-10">
@@ -64,12 +81,96 @@ export default function CommunityPage() {
                 </Card>
 
                 <div className="mx-4 space-y-8">
-                    <h3 className="scroll-m-20 pb-2 text-xl font-semibold tracking-tight first:mt-0 md:text-2xl">
-                        Kalender Kegiatan
-                    </h3>
+                    <UserCalendar />
                 </div>
             </div>
         </AuthenticatedLayout>
+    );
+}
+
+interface EventsType {
+    [key: string]: string;
+}
+
+function UserCalendar() {
+    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const events: EventsType = {
+        '2025-02-01': "New Year's Day",
+        '2025-02-14': "Valentine's Day",
+        '2025-02-20': 'Team Meeting',
+    };
+
+    const renderDateCell = ({
+        date,
+        isCurrentMonth,
+        isToday,
+        isSelected,
+        onSelect,
+    }: DateCellProps) => {
+        const dateKey = format(date, 'yyyy-MM-dd');
+        const hasEvent = dateKey in events;
+
+        return (
+            <button
+                className={`flex h-full min-h-[60px] w-full flex-col items-center justify-center p-1 ${
+                    isSelected ? 'bg-primary text-primary-foreground' : ''
+                } ${!isCurrentMonth ? 'text-muted-foreground' : ''}`}
+                onClick={() => onSelect(date)}
+            >
+                <span className={`text-sm ${isToday ? 'font-bold' : ''}`}>
+                    {format(date, 'd')}
+                </span>
+                {hasEvent && (
+                    <Badge variant="secondary" className="mt-1 text-xs">
+                        {events[dateKey]}
+                    </Badge>
+                )}
+            </button>
+        );
+    };
+
+    const handleCellClick = (date: Date) => {
+        setSelectedDate(date);
+        setIsDialogOpen(true);
+    };
+
+    return (
+        <div className="py-10">
+            <h1 className="mb-6 text-2xl font-bold">Kalender Kegiatan</h1>
+            <Calendar
+                renderDateCell={renderDateCell}
+                onCellClick={handleCellClick}
+            />
+
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>
+                            Selected Date:{' '}
+                            {selectedDate
+                                ? format(selectedDate, 'MMMM d, yyyy')
+                                : ''}
+                        </DialogTitle>
+                    </DialogHeader>
+                    <div className="py-4">
+                        {selectedDate &&
+                        events[format(selectedDate, 'yyyy-MM-dd')] ? (
+                            <p>
+                                Event:{' '}
+                                {events[format(selectedDate, 'yyyy-MM-dd')]}
+                            </p>
+                        ) : (
+                            <p>No events scheduled for this date.</p>
+                        )}
+                    </div>
+                    <Button onClick={() => setIsDialogOpen(false)}>
+                        Close
+                    </Button>
+                </DialogContent>
+            </Dialog>
+        </div>
     );
 }
 
